@@ -12,7 +12,7 @@ PER_PAGE = 50  # Количество пользователей получаемых одним запросом. Рекомендует
 
 
 Установить зависимости
-```pip install```
+```pip install -r requirements.txt```
 
 Запустить скрипт
 ```python listusers.py```
