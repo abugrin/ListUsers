@@ -58,12 +58,24 @@ def fetch_users_by_page(page):
         try:
             org_users = []
             for org_user in response_json['users']:
-                user_id = org_user['id']
-                email = org_user['email']
-                nickname = org_user['nickname']
-                fname = org_user['name']['first']
-                lname = org_user['name']['last']
-                org_users.append({'ID': user_id, 'Email': email, 'Login': nickname, 'FName': fname, 'LName': lname})
+                display_name = ''
+                if 'displayName' in org_user:
+                    display_name = org_user['displayName']
+                org_users.append(
+                    {
+                        'ID': org_user['id'],
+                        'Email': org_user['email'],
+                        'Login': org_user['nickname'],
+                        'Fname': org_user['name']['first'],
+                        'Lname': org_user['name']['last'],
+                        'Mname': org_user['name']['middle'],
+                        'DisplayName': display_name,
+                        'Position': org_user['position'],
+                        'Language': org_user['language'],
+                        'Timezone': org_user['timezone'],
+                        'Admin': org_user['isAdmin'],
+                        'Enabled': org_user['isEnabled']
+                    })
 
             return org_users
         except KeyError:
@@ -73,7 +85,7 @@ def fetch_users_by_page(page):
 
 
 def save_users_to_csv(user_records):
-    with open('users.csv', 'w', newline='') as f:
+    with open('users.csv', 'w', newline='', encoding='utf-8') as f:
         keys = user_records[0].keys()
         w = csv.DictWriter(f, keys)
         w.writeheader()
