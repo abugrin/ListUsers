@@ -95,7 +95,7 @@ def save_users_to_csv(user_records):
 if __name__ == '__main__':
     pages = count_pages()
 
-    start = input("Start import? y/n: ")
+    start = input("Start export? y/n: ")
     if start.lower() == 'y':
         users = fetch_all_users(pages)
         save_users_to_csv(users)
